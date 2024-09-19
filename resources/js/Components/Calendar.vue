@@ -19,12 +19,16 @@ export default {
         return {
             calendarOptions: {
                 plugins: [daygrid, interactionPlugin, timeGrip],
-                initialView: 'dayGridMonth',
+                initialView: 'timeGridWeek',
                 headerToolbar: {
                     left: 'prev, next, today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }
+                },
+                height: 'auto',
+                allDaySlot: false,
+                slotMinTime: "08:00:00",
+                slotMaxTime: "19:00:00",
             }
         }
     }
