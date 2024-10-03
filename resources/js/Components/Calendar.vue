@@ -29,7 +29,13 @@ export default {
                 allDaySlot: false,
                 slotMinTime: "08:00:00",
                 slotMaxTime: "19:00:00",
+                dateClick: this.handleDateClick,
             }
+        }
+    },
+    methods: {
+        handleDateClick(clickInfo) {
+            this.$emit('dateClick', clickInfo)
         }
     }
 }
