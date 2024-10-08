@@ -38,28 +38,28 @@
                     <!-- Motivo -->
                     <div class="mb-4">
                         <label for="motivo" class="block text-gray-700 text-sm font-bold mb-2">Motivo:</label>
-                        <input type="text" class="input-field" id="motivo"
+                        <input v-model="form.title" type="text" class="input-field" id="motivo"
                             placeholder="Ingresa el motivo de la consulta" autocomplete="off">
                     </div>
 
                     <!-- Fecha -->
                     <div class="mb-4">
                         <label for="fecha" class="block text-gray-700 text-sm font-bold mb-2">Fecha</label>
-                        <input disabled type="text" class="input-field bg-gray-100 cursor-not-allowed" id="fecha"
+                        <input v-model="form.date_at" disabled type="text" class="input-field bg-gray-100 cursor-not-allowed" id="fecha"
                             placeholder="Fecha seleccionada">
                     </div>
 
                     <!-- Hora -->
                     <div class="mb-4">
                         <label for="hora" class="block text-gray-700 text-sm font-bold mb-2">Hora</label>
-                        <input disabled type="text" class="input-field bg-gray-100 cursor-not-allowed" id="hora"
+                        <input v-model="form.hour" disabled type="text" class="input-field bg-gray-100 cursor-not-allowed" id="hora"
                             placeholder="Hora seleccionada">
                     </div>
 
                     <!-- Duración -->
                     <div class="mb-4">
                         <label for="duracion" class="block text-sm font-bold text-gray-700">Duración</label>
-                        <select id="duracion"
+                        <select v-model="form.session" id="duracion"
                             class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
                             <option value="900">15 minutos</option>
                             <option value="1800">30 minutos</option>
@@ -70,11 +70,11 @@
 
                 <!-- Footer -->
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse">
-                    <button @click.prevent="store()" type="button"
+                    <button @click.prevent="store(form)" type="button"
                         class="inline-flex justify-center w-full border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2">Guardar</button>
                     <button type="button"
                         class="inline-flex justify-center w-full border border-red-500 text-red-500 rounded-md px-4 py-2 m-2">Eliminar</button>
-                    <button type="button"
+                    <button type="button" @click.prevent="closeModal"
                         class="inline-flex justify-center w-full border border-gray-200 bg-teal-200 text-gray-700 rounded-md px-4 py-2 m-2">Atrás</button>
                 </div>
             </form>
@@ -85,6 +85,22 @@
 <script>
 export default {
     name: "Modal",
+    props: {
+        form: {
+            type: Object,
+            default: ()=>{}
+        }
+    },
+    components: {
+    },
+    methods: {
+        closeModal(){
+            this.$emit('closeModal')
+        },
+        store(form){
+            this.$emit('saveAppt', form)
+        }
+    }
 };
 </script>
 

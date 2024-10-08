@@ -4,6 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Calendar
             </h2>
+            <span>{{ $page.user }}</span>
         </template>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -12,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <ModalCalendar v-if="showModal"></ModalCalendar>
+        <ModalCalendar v-if="showModal" :form="newEvent" @closeModal="closeModal" @saveAppt="saveAppt"></ModalCalendar>
     </app-layout>
 </template>
 
@@ -31,12 +32,33 @@
         data(){
             return{
                 showModal: false,
+                newEvent: {
+                    title: '',
+                    date_at: '',
+                    hour: '',
+                    user_id: '',
+                    session: 1800
+                }
             }
         },
         methods: {
             dateClick(arg){
                 this.$data.showModal = true;
+                this.setModalOpen(arg)
                 console.log('recibiendo datos:', arg);
+            },
+            closeModal(){
+                this.$data.showModal = false;
+            },
+            setModalOpen(obj){
+                const dateAndTime = obj.dateStr.split("T")
+                this.newEvent.date_at = dateAndTime[0];
+                this.newEvent.hour = dateAndTime[1].substr(0, 8);
+                this.newEvent.user_id = this.$page.user_id
+                return
+            },
+            saveAppt(param){
+                console.log(param)
             }
         }
     }
